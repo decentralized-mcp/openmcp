@@ -16,46 +16,261 @@
             color: #333342;
             line-height: 1.6;
         }
+
+        /* Mobile-first approach */
+        .container {
+            width: 100%;
+            padding: 0 1rem;
+            margin: 0 auto;
+        }
+
+        @media (min-width: 768px) {
+            .container {
+                padding: 0 2rem;
+                max-width: 1200px;
+            }
+        }
+
+        /* Mobile navigation */
+        .mobile-menu-btn {
+            display: block;
+            cursor: pointer;
+        }
+
+        .nav-menu {
+            display: none;
+            width: 100%;
+        }
+
+        .nav-menu.active {
+            display: block;
+            position: absolute;
+            top: 80px;
+            left: 0;
+            right: 0;
+            background-color: #FEFAF9;
+            padding: 1rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+
+        .nav-menu ul {
+            flex-direction: column;
+            width: 100%;
+        }
+
+        .nav-menu ul li {
+            margin-bottom: 1rem;
+        }
+
+        @media (min-width: 768px) {
+            .mobile-menu-btn {
+                display: none;
+            }
+
+            .nav-menu {
+                display: block;
+                width: auto;
+            }
+
+            .nav-menu ul {
+                display: flex;
+                flex-direction: row;
+                gap: 1.5rem;
+            }
+        }
+
+        /* Responsive grid layouts */
+        .grid-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+
+        @media (min-width: 768px) {
+            .grid-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (min-width: 992px) {
+            .grid-container.three-col {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        /* Hero section responsive layout */
+        .hero-section {
+            display: flex;
+            flex-direction: column;
+            padding: 3rem 0;
+        }
+
+        .hero-content {
+            order: 2;
+        }
+
+        .hero-image {
+            order: 1;
+            margin-bottom: 2rem;
+        }
+
+        @media (min-width: 768px) {
+            .hero-section {
+                flex-direction: row;
+                align-items: center;
+                gap: 3rem;
+                padding: 6rem 0;
+            }
+
+            .hero-content {
+                order: 1;
+                flex: 1;
+            }
+
+            .hero-image {
+                order: 2;
+                flex: 1;
+                margin-bottom: 0;
+            }
+        }
+
+        /* Footer responsive */
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+
+        @media (min-width: 768px) {
+            .footer-grid {
+                grid-template-columns: 2fr 1fr;
+            }
+        }
+
+        @media (min-width: 992px) {
+            .footer-grid {
+                grid-template-columns: 2fr 1fr 1fr 1fr;
+            }
+        }
+
+        /* Button styles */
+        .btn {
+            display: inline-block;
+            background-color: #D98B76;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: background-color 0.3s;
+            text-align: center;
+        }
+
+        /* Typography responsive */
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(90deg, #D98B76 0%, #8A74E8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        @media (min-width: 768px) {
+            h1 {
+                font-size: 3.5rem;
+            }
+        }
+
+        /* Header styles */
+        header {
+            width: 100%;
+            background-color: #FEFAF9;
+            position: sticky;
+            top: 0;
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .header-container {
+            display: flex;
+            flex-direction: column;
+            padding: 1rem;
+        }
+
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        @media (min-width: 768px) {
+            .header-container {
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+                padding: 1.5rem 2rem;
+            }
+        }
+
+        /* Image responsive */
+        img {
+            max-width: 100%;
+            height: auto;
+        }
     </style>
 </head>
 <body>
-    <!-- Full-width Header with centered content -->
-    <header style="width: 100%; background-color: #FEFAF9; position: sticky; top: 0; backdrop-filter: blur(10px); z-index: 1000; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);">
-    <div style="max-width: 1200px; margin: 0 auto; padding: 1.5rem 2rem; display: flex; justify-content: space-between; align-items: center;">
-        <div style="font-size: 1.8rem; font-weight: 700; color: #D98B76; display: flex; align-items: center; gap: 0.5rem;">
-            <div style="width: 36px; height: 36px; background-color: #D98B76; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold;">O</div>
-            <span>OpenMCP</span>
+    <!-- Mobile-friendly Header -->
+    <header>
+        <div class="container header-container">
+            <div class="header-top">
+                <div style="font-size: 1.8rem; font-weight: 700; color: #D98B76; display: flex; align-items: center; gap: 0.5rem;">
+                    <div style="width: 36px; height: 36px; background-color: #D98B76; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold;">O</div>
+                    <span>OpenMCP</span>
+                </div>
+                
+                <div class="mobile-menu-btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="3" y1="12" x2="21" y2="12"></line>
+                        <line x1="3" y1="6" x2="21" y2="6"></line>
+                        <line x1="3" y1="18" x2="21" y2="18"></line>
+                    </svg>
+                </div>
+            </div>
+            
+            <div class="nav-menu">
+                <nav>
+                    <ul style="list-style: none;">
+                        <li><a href="#features" style="text-decoration: none; color: #333342; font-weight: 500; transition: color 0.3s; padding-bottom: 0.3rem;">Features</a></li>
+                        <li><a href="#how-it-works" style="text-decoration: none; color: #333342; font-weight: 500; transition: color 0.3s; padding-bottom: 0.3rem;">How It Works</a></li>
+                        <li><a href="https://lu.ma/9rk0jyq7" class="btn" style="display: block; margin-top: 1rem; text-align: center;">Join our event</a></li>
+                    </ul>
+                </nav>
+            </div>
         </div>
-        
-        <div style="display: flex; align-items: center; margin-left: auto;">
-            <nav style="margin-right: 1.5rem;">
-                <ul style="display: flex; list-style: none; gap: 1.5rem;">
-                    <li><a href="#features" style="text-decoration: none; color: #333342; font-weight: 500; transition: color 0.3s; padding-bottom: 0.3rem;">Features</a></li>
-                    <li><a href="#how-it-works" style="text-decoration: none; color: #333342; font-weight: 500; transition: color 0.3s; padding-bottom: 0.3rem;">How It Works</a></li>
-                </ul>
-            </nav>
-            <a href="https://lu.ma/9rk0jyq7" style="background-color: #D98B76; color: white; padding: 0.75rem 1.5rem; border-radius: 8px; font-weight: 600; text-decoration: none; transition: background-color 0.3s;">Join our event</a>
-        </div>
-    </div>
     </header>
     
     <!-- Hero Section -->
-    <section style="padding: 6rem 0; display: flex; align-items: center; gap: 3rem; max-width: 1200px; margin: 0 auto;">
-        <div style="flex: 1;">
-            <h1 style="font-size: 3.5rem; font-weight: 800; line-height: 1.2; margin-bottom: 1.5rem; background: linear-gradient(90deg, #D98B76 0%, #8A74E8 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Share, Secure & Monetize MCP Services</h1>
-            <p style="font-size: 1.25rem; color: #71717A; margin-bottom: 2rem; max-width: 540px;">MCP (Model Context Protocol) servers allow LLMs to <b>act</b> on its <b>thoughts</b>. OpenMCP makes local MCP services safely accessible over the web through runtime sandboxes, security rules and authorization policies.</p>
-            <p style="font-size: 1.25rem; color: #71717A; margin-bottom: 2rem; max-width: 540px;">The OpenMCP protocol enables individual MCP servers to verifiy and monetize their services through a staked crypto network.</p>
-            <a href="https://lu.ma/9rk0jyq7" style="background-color: #D98B76; color: white; padding: 0.75rem 1.5rem; border-radius: 8px; font-weight: 600; text-decoration: none; transition: background-color 0.3s; display: inline-block;">Join our event</a>
+    <section class="hero-section container">
+        <div class="hero-content">
+            <h1>Share, Secure & Monetize MCP Services</h1>
+            <p style="font-size: 1.1rem; color: #71717A; margin-bottom: 2rem;">MCP (Model Context Protocol) servers allow LLMs to <b>act</b> on its <b>thoughts</b>. OpenMCP makes local MCP services safely accessible over the web through runtime sandboxes, security rules and authorization policies.</p>
+            <p style="font-size: 1.1rem; color: #71717A; margin-bottom: 2rem;">The OpenMCP protocol enables individual MCP servers to verifiy and monetize their services through a staked crypto network.</p>
+            <a href="https://lu.ma/9rk0jyq7" class="btn" style="width: 100%; max-width: 300px;">Join our event</a>
         </div>
-        <div style="flex: 1;">
-            <img src="https://images.lumacdn.com/cdn-cgi/image/format=auto,fit=cover,dpr=2,background=white,quality=75,width=400,height=400/event-covers/am/79daf27d-bc6f-4fc0-a44f-845d982dfe4a.png" alt="OpenMCP Diagram" style="max-width: 100%; border-radius: 16px; box-shadow: 0 20px 40px rgba(94, 66, 188, 0.1);" />
+        <div class="hero-image">
+            <img src="https://images.lumacdn.com/cdn-cgi/image/format=auto,fit=cover,dpr=2,background=white,quality=75,width=400,height=400/event-covers/am/79daf27d-bc6f-4fc0-a44f-845d982dfe4a.png" alt="OpenMCP Diagram" style="border-radius: 16px; box-shadow: 0 20px 40px rgba(94, 66, 188, 0.1);" />
         </div>
     </section>
     
-    <!-- Code Block Section (Separate from Hero) -->
-    <div style="max-width: 1200px; margin: 2rem auto 4rem; padding: 0 2rem;">
+    <!-- Code Block Section (Responsive) -->
+    <div class="container" style="margin: 2rem auto 4rem;">
         <div style="border: 2px solid #FF5F56; border-radius: 16px; overflow: hidden; box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);">
-            <div style="background-color: #2D2F3A; color: #F8F8F2; font-family: 'JetBrains Mono', monospace; padding: 1.5rem; border-radius: 10px; overflow: auto; font-size: 0.9rem; line-height: 1.5; position: relative;">
+            <div style="background-color: #2D2F3A; color: #F8F8F2; font-family: 'JetBrains Mono', monospace; padding: 1rem; border-radius: 10px; overflow: auto; font-size: 0.8rem; line-height: 1.5; position: relative;">
                 <div style="position: absolute; top: 12px; left: 12px; display: flex; gap: 6px;">
                     <div style="width: 12px; height: 12px; border-radius: 50%; background-color: #FF5F56;"></div>
                     <div style="width: 12px; height: 12px; border-radius: 50%; background-color: #FFBD2E;"></div>
@@ -79,168 +294,110 @@
         </div>
     </div>
     
-    <!-- The MCP Protocol Challenge Section -->
-    <!--
-    <section style="width: 100%; background-color: #FFF8F6; padding: 5rem 0; margin: 0;">
-        <div style="max-width: 1200px; margin: 0 auto; padding: 0 2rem; text-align: center;">
-            <h2 style="font-size: 2rem; margin-bottom: 2rem; color: #333342;">The MCP Protocol Challenge</h2>
-            <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 2rem; max-width: 900px; margin: 0 auto;">
-                <div style="flex: 1; min-width: 200px; text-align: left; background: white; padding: 1.5rem; border-radius: 12px; box-shadow: 0 10px 25px rgba(94, 66, 188, 0.08);">
-                    <h3 style="color: #E74C3C; margin-bottom: 0.8rem; font-size: 1.2rem;">Insecure</h3>
-                    <p>Traditional MCP servers run with full system access, potentially exposing sensitive credentials and data to security risks.</p>
-                </div>
-                <div style="flex: 1; min-width: 200px; text-align: left; background: white; padding: 1.5rem; border-radius: 12px; box-shadow: 0 10px 25px rgba(94, 66, 188, 0.08);">
-                    <h3 style="color: #E67E22; margin-bottom: 0.8rem; font-size: 1.2rem;">Unreliable</h3>
-                    <p>Local MCP servers often suffer from downtime due to network changes, computer restarts, or performance issues.</p>
-                </div>
-                <div style="flex: 1; min-width: 200px; text-align: left; background: white; padding: 1.5rem; border-radius: 12px; box-shadow: 0 10px 25px rgba(94, 66, 188, 0.08);">
-                    <h3 style="color: #3498DB; margin-bottom: 0.8rem; font-size: 1.2rem;">Limited</h3>
-                    <p>Traditional MCP servers lack the ability to enforce fine-grained security policies or run multiple specialized servers together.</p>
-                </div>
-                <div style="flex: 1; min-width: 200px; text-align: left; background: white; padding: 1.5rem; border-radius: 12px; box-shadow: 0 10px 25px rgba(94, 66, 188, 0.08);">
-                    <h3 style="color: #9B59B6; margin-bottom: 0.8rem; font-size: 1.2rem;">Isolated</h3>
-                    <p>Individual MCP servers operate in isolation, making it difficult to share resources or provide redundancy across multiple services.</p>
-                </div>
-            </div>
-            <div style="margin-top: 3rem;">
-                <h3 style="font-size: 1.5rem; margin-bottom: 1rem; color: #D98B76;">Our solution addresses all these challenges</h3>
-                <p style="max-width: 700px; margin: 0 auto;">By combining a secure proxy with WebAssembly, we enable safer, more reliable, and more powerful MCP services.</p>
-            </div>
-        </div>
-    </section>
-    -->
-    
     <!-- Features Section -->
-    <section id="features" style="width: 100%; background-color: #FEFAF9; padding: 5rem 0; margin: 0;">
-        <div style="max-width: 1200px; margin: 0 auto; padding: 0 2rem;">
-            <div style="text-align: center; margin-bottom: 4rem;">
-                <h2 style="font-size: 2.5rem; font-weight: 700; color: #D98B76; margin-bottom: 1rem;">Features</h2>
-                <p style="font-size: 1.1rem; color: #71717A; max-width: 600px; margin: 0 auto;">Transform local MCP servers into secure, reliable, and profitable online services</p>
+    <section id="features" style="width: 100%; background-color: #FEFAF9; padding: 3rem 0; margin: 0;">
+        <div class="container">
+            <div style="text-align: center; margin-bottom: 3rem;">
+                <h2 style="font-size: 2rem; font-weight: 700; color: #D98B76; margin-bottom: 1rem;">Features</h2>
+                <p style="font-size: 1rem; color: #71717A;">Transform local MCP servers into secure, reliable, and profitable online services</p>
             </div>
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
-                <div style="background: white; padding: 2rem; border-radius: 16px; box-shadow: 0 10px 30px rgba(94, 66, 188, 0.06); transition: transform 0.3s, box-shadow 0.3s;">
-                    <div style="width: 60px; height: 60px; background-color: #FFF8F6; border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 1.5rem;">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="#D98B76" width="30" height="30">
+            <div class="grid-container three-col">
+                <div style="background: white; padding: 1.5rem; border-radius: 16px; box-shadow: 0 10px 30px rgba(94, 66, 188, 0.06); transition: transform 0.3s, box-shadow 0.3s;">
+                    <div style="width: 50px; height: 50px; background-color: #FFF8F6; border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 1.5rem;">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="#D98B76" width="25" height="25">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
                         </svg>
                     </div>
-                    <h3 style="font-size: 1.5rem; font-weight: 600; margin-bottom: 1rem;">Execution sanbox</h3>
-                    <p style="color: #71717A;">The WasmEdge sandbox is an isolated and secure execution environment for MCP services. For example, it could limit access to certain local files and URLs.</p>
+                    <h3 style="font-size: 1.3rem; font-weight: 600; margin-bottom: 0.8rem;">Execution sanbox</h3>
+                    <p style="color: #71717A; font-size: 0.95rem;">The WasmEdge sandbox is an isolated and secure execution environment for MCP services. For example, it could limit access to certain local files and URLs.</p>
                 </div>
-                <div style="background: white; padding: 2rem; border-radius: 16px; box-shadow: 0 10px 30px rgba(94, 66, 188, 0.06); transition: transform 0.3s, box-shadow 0.3s;">
-                    <div style="width: 60px; height: 60px; background-color: #FFF8F6; border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 1.5rem;">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="#D98B76" width="30" height="30">
+                <div style="background: white; padding: 1.5rem; border-radius: 16px; box-shadow: 0 10px 30px rgba(94, 66, 188, 0.06); transition: transform 0.3s, box-shadow 0.3s;">
+                    <div style="width: 50px; height: 50px; background-color: #FFF8F6; border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 1.5rem;">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="#D98B76" width="25" height="25">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                         </svg>
                     </div>
-                    <h3 style="font-size: 1.5rem; font-weight: 600; margin-bottom: 1rem;">Aggregate MCP servers</h3>
-                    <p style="color: #71717A;">The OpenMCP proxy can dispatch requests to multiple local MCP servers, providing a single SSE URL for all functions in those MCP servers.</p>
+                    <h3 style="font-size: 1.3rem; font-weight: 600; margin-bottom: 0.8rem;">Aggregate MCP servers</h3>
+                    <p style="color: #71717A; font-size: 0.95rem;">The OpenMCP proxy can dispatch requests to multiple local MCP servers, providing a single SSE URL for all functions in those MCP servers.</p>
                 </div>
-                <div style="background: white; padding: 2rem; border-radius: 16px; box-shadow: 0 10px 30px rgba(94, 66, 188, 0.06); transition: transform 0.3s, box-shadow 0.3s;">
-                    <div style="width: 60px; height: 60px; background-color: #FFF8F6; border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 1.5rem;">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="#D98B76" width="30" height="30">
+                <div style="background: white; padding: 1.5rem; border-radius: 16px; box-shadow: 0 10px 30px rgba(94, 66, 188, 0.06); transition: transform 0.3s, box-shadow 0.3s;">
+                    <div style="width: 50px; height: 50px; background-color: #FFF8F6; border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 1.5rem;">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="#D98B76" width="25" height="25">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
                         </svg>
                     </div>
-                    <h3 style="font-size: 1.5rem; font-weight: 600; margin-bottom: 1rem;">Security Rules</h3>
-                    <p style="color: #71717A;">Implement and enforce security rules defining which commands and API calls are allowed or prohibited by each MCP server. For example, we might prohibit "delete playlist" operation on a 3rd party spotify MCP server.</p>
+                    <h3 style="font-size: 1.3rem; font-weight: 600; margin-bottom: 0.8rem;">Security Rules</h3>
+                    <p style="color: #71717A; font-size: 0.95rem;">Implement and enforce security rules defining which commands and API calls are allowed or prohibited by each MCP server.</p>
                 </div>
                 <!-- Additional Feature Cards -->
-                <div style="background: white; padding: 2rem; border-radius: 16px; box-shadow: 0 10px 30px rgba(94, 66, 188, 0.06); transition: transform 0.3s, box-shadow 0.3s;">
-                    <div style="width: 60px; height: 60px; background-color: #FFF8F6; border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 1.5rem;">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="#D98B76" width="30" height="30">
+                <div style="background: white; padding: 1.5rem; border-radius: 16px; box-shadow: 0 10px 30px rgba(94, 66, 188, 0.06); transition: transform 0.3s, box-shadow 0.3s;">
+                    <div style="width: 50px; height: 50px; background-color: #FFF8F6; border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 1.5rem;">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="#D98B76" width="25" height="25">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                         </svg>
                     </div>
-                    <h3 style="font-size: 1.5rem; font-weight: 600; margin-bottom: 1rem;">Monetization</h3>
-                    <p style="color: #71717A;">Decentralized payment protocol supporting subscriptions and usage-based billing based on API keys. The crypto network automatically supports revenue sharing between the proxy operator and MCP servers through smart contracts.</p>
+                    <h3 style="font-size: 1.3rem; font-weight: 600; margin-bottom: 0.8rem;">Monetization</h3>
+                    <p style="color: #71717A; font-size: 0.95rem;">Decentralized payment protocol supporting subscriptions and usage-based billing based on API keys.</p>
                 </div>
-                <div style="background: white; padding: 2rem; border-radius: 16px; box-shadow: 0 10px 30px rgba(94, 66, 188, 0.06); transition: transform 0.3s, box-shadow 0.3s;">
-                    <div style="width: 60px; height: 60px; background-color: #FFF8F6; border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 1.5rem;">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="#D98B76" width="30" height="30">
+                <div style="background: white; padding: 1.5rem; border-radius: 16px; box-shadow: 0 10px 30px rgba(94, 66, 188, 0.06); transition: transform 0.3s, box-shadow 0.3s;">
+                    <div style="width: 50px; height: 50px; background-color: #FFF8F6; border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 1.5rem;">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="#D98B76" width="25" height="25">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
                         </svg>
                     </div>
-                    <h3 style="font-size: 1.5rem; font-weight: 600; margin-bottom: 1rem;">Authentication</h3>
-                    <p style="color: #71717A;">Define and implement access control for each MCP server behind the OpenMCP proxy. For example, each request must have an attached API key. It provides service endpoints to create and fund API keys.</p>
+                    <h3 style="font-size: 1.3rem; font-weight: 600; margin-bottom: 0.8rem;">Authentication</h3>
+                    <p style="color: #71717A; font-size: 0.95rem;">Define and implement access control for each MCP server behind the OpenMCP proxy.</p>
                 </div>
-                <div style="background: white; padding: 2rem; border-radius: 16px; box-shadow: 0 10px 30px rgba(94, 66, 188, 0.06); transition: transform 0.3s, box-shadow 0.3s;">
-                    <div style="width: 60px; height: 60px; background-color: #FFF8F6; border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 1.5rem;">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="#D98B76" width="30" height="30">
+                <div style="background: white; padding: 1.5rem; border-radius: 16px; box-shadow: 0 10px 30px rgba(94, 66, 188, 0.06); transition: transform 0.3s, box-shadow 0.3s;">
+                    <div style="width: 50px; height: 50px; background-color: #FFF8F6; border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 1.5rem;">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="#D98B76" width="25" height="25">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
                         </svg>
                     </div>
-                    <h3 style="font-size: 1.5rem; font-weight: 600; margin-bottom: 1rem;">Verifiable Services</h3>
-                    <p style="color: #71717A;">Crypto staking for OpenMCP service providers to ensure that they are running the correct MCP functions. A validator network could randomly check the response messages to verify service status.</p>
+                    <h3 style="font-size: 1.3rem; font-weight: 600; margin-bottom: 0.8rem;">Verifiable Services</h3>
+                    <p style="color: #71717A; font-size: 0.95rem;">Crypto staking for OpenMCP service providers to ensure that they are running the correct MCP functions.</p>
                 </div>
             </div>
         </div>
     </section>
     
     <!-- How It Works Section -->
-    <section id="how-it-works" style="width: 100%; background-color: #FFF8F6; padding: 5rem 0; margin: 0;">
-        <div style="max-width: 1200px; margin: 0 auto; padding: 0 2rem;">
-            <div style="text-align: center; margin-bottom: 4rem;">
-                <h2 style="font-size: 2.5rem; font-weight: 700; color: #D98B76; margin-bottom: 1rem;">How It Works</h2>
-                <p style="font-size: 1.1rem; color: #71717A; max-width: 600px; margin: 0 auto;">OpenMCP is a proxy server that fully implements the MCP protocol. It can be extended with safe and sandboxed plugin modules that supports MCP services, security rules, auth, and even payments. Each server can then join the OpenMCP network to provide reliable and paid services to the public.</p>
+    <section id="how-it-works" style="width: 100%; background-color: #FFF8F6; padding: 3rem 0; margin: 0;">
+        <div class="container">
+            <div style="text-align: center; margin-bottom: 3rem;">
+                <h2 style="font-size: 2rem; font-weight: 700; color: #D98B76; margin-bottom: 1rem;">How It Works</h2>
+                <p style="font-size: 1rem; color: #71717A;">OpenMCP is a proxy server that fully implements the MCP protocol. It can be extended with safe and sandboxed plugin modules that supports MCP services, security rules, auth, and even payments.</p>
             </div>
             
-            <!-- Technical Architecture Visualization -->
-            <!--
-            <div style="text-align: center; margin: 3rem 0; background-color: #2D2F3A; padding: 2rem; border-radius: 16px; box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);">
-                <img src="/api/placeholder/1000/600" alt="OpenMCP Technical Architecture" style="max-width: 100%;"/>
-                <p style="margin-top: 1rem; color: #A1A1AA; font-size: 0.9rem;">OpenMCP's web-based proxy dispatches requests to multiple local MCP servers and Wasm-based MCP modules</p>
-            </div>
-            -->
-            
-            <!-- Step by Step Process -->
-            
-            <!--
-            <h3 style="text-align: center; margin: 3rem 0 2rem; font-size: 1.8rem; color: #D98B76;">Simple Setup Process</h3>
-            
-            <div style="display: flex; gap: 2rem; margin-top: 2rem; flex-wrap: wrap;">
-                <div style="flex: 1; text-align: center; position: relative; min-width: 200px; background: white; padding: 2rem; border-radius: 16px; box-shadow: 0 10px 25px rgba(94, 66, 188, 0.08);">
+            <h3 style="text-align: center; margin: 2rem 0 1.5rem; font-size: 1.5rem; color: #D98B76;">Plugin modules</h3>
+            <div class="grid-container">
+                <div style="background: white; padding: 1.5rem; border-radius: 16px; box-shadow: 0 10px 25px rgba(94, 66, 188, 0.08);">
                     <div style="width: 40px; height: 40px; background-color: #D98B76; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 600; margin: 0 auto 1.5rem;">1</div>
-                    <h3 style="font-size: 1.2rem; font-weight: 600; margin-bottom: 1rem;">Install OpenMCP Proxy</h3>
-                    <p style="color: #71717A; font-size: 0.95rem;">Quick installation of our WebAssembly-powered proxy for secure MCP management.</p>
-                </div>
-                <div style="flex: 1; text-align: center; position: relative; min-width: 200px; background: white; padding: 2rem; border-radius: 16px; box-shadow: 0 10px 25px rgba(94, 66, 188, 0.08);">
-                    <div style="width: 40px; height: 40px; background-color: #D98B76; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 600; margin: 0 auto 1.5rem;">2</div>
-                    <h3 style="font-size: 1.2rem; font-weight: 600; margin-bottom: 1rem;">Start Your MCP Servers</h3>
-                    <p style="color: #71717A; font-size: 0.95rem;">Launch and manage multiple local MCP servers from the proxy with automatic internet accessibility.</p>
-                </div>
-            </div>
-            -->
-            
-            <h3 style="text-align: center; margin: 3rem 0 2rem; font-size: 1.8rem; color: #D98B76;">Plugin modules</h3>
-            <div style="display: flex; gap: 2rem; margin-top: 2rem; flex-wrap: wrap;">
-                <div style="flex: 1; text-align: center; position: relative; min-width: 200px; background: white; padding: 2rem; border-radius: 16px; box-shadow: 0 10px 25px rgba(94, 66, 188, 0.08);">
-                    <div style="width: 40px; height: 40px; background-color: #D98B76; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 600; margin: 0 auto 1.5rem;">1</div>
-                    <h3 style="font-size: 1.2rem; font-weight: 600; margin-bottom: 1rem;">MCP Services</h3>
+                    <h3 style="font-size: 1.2rem; font-weight: 600; margin-bottom: 1rem; text-align: center;">MCP Services</h3>
                     <p style="color: #71717A; font-size: 0.95rem;">Use Wasm modules that act as MCP servers within a secure sandboxed environment, making them much safer than traditional servers.</p>
                 </div>
-                <div style="flex: 1; text-align: center; position: relative; min-width: 200px; background: white; padding: 2rem; border-radius: 16px; box-shadow: 0 10px 25px rgba(94, 66, 188, 0.08);">
+                <div style="background: white; padding: 1.5rem; border-radius: 16px; box-shadow: 0 10px 25px rgba(94, 66, 188, 0.08);">
                     <div style="width: 40px; height: 40px; background-color: #D98B76; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 600; margin: 0 auto 1.5rem;">2</div>
-                    <h3 style="font-size: 1.2rem; font-weight: 600; margin-bottom: 1rem;">Authentication Policies</h3>
+                    <h3 style="font-size: 1.2rem; font-weight: 600; margin-bottom: 1rem; text-align: center;">Authentication Policies</h3>
                     <p style="color: #71717A; font-size: 0.95rem;">Define and enforce custom authentication and API key policies for each local MCP server through Wasm modules.</p>
                 </div>
-                <div style="flex: 1; text-align: center; position: relative; min-width: 200px; background: white; padding: 2rem; border-radius: 16px; box-shadow: 0 10px 25px rgba(94, 66, 188, 0.08);">
+                <div style="background: white; padding: 1.5rem; border-radius: 16px; box-shadow: 0 10px 25px rgba(94, 66, 188, 0.08);">
                     <div style="width: 40px; height: 40px; background-color: #D98B76; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 600; margin: 0 auto 1.5rem;">3</div>
-                    <h3 style="font-size: 1.2rem; font-weight: 600; margin-bottom: 1rem;">Security Rules</h3>
+                    <h3 style="font-size: 1.2rem; font-weight: 600; margin-bottom: 1rem; text-align: center;">Security Rules</h3>
                     <p style="color: #71717A; font-size: 0.95rem;">Create and enforce security rules that control which commands and API calls are allowed or prohibited by each local MCP server.</p>
                 </div>
             </div>
 
-            <h3 style="text-align: center; margin: 3rem 0 2rem; font-size: 1.8rem; color: #D98B76;">OpenMCP network</h3>
-            <div style="display: flex; gap: 2rem; margin-top: 2rem; flex-wrap: wrap;">
-                <div style="flex: 1; text-align: center; position: relative; min-width: 200px; background: white; padding: 2rem; border-radius: 16px; box-shadow: 0 10px 25px rgba(94, 66, 188, 0.08);">
+            <h3 style="text-align: center; margin: 3rem 0 1.5rem; font-size: 1.5rem; color: #D98B76;">OpenMCP network</h3>
+            <div class="grid-container">
+                <div style="background: white; padding: 1.5rem; border-radius: 16px; box-shadow: 0 10px 25px rgba(94, 66, 188, 0.08);">
                     <div style="width: 40px; height: 40px; background-color: #D98B76; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 600; margin: 0 auto 1.5rem;">1</div>
-                    <h3 style="font-size: 1.2rem; font-weight: 600; margin-bottom: 1rem;">Verifiable</h3>
+                    <h3 style="font-size: 1.2rem; font-weight: 600; margin-bottom: 1rem; text-align: center;">Verifiable</h3>
                     <p style="color: #71717A; font-size: 0.95rem;">Through AVS staking, the network can verify that a node is providing services it claims to provide.</p>
                 </div>
-                <div style="flex: 1; text-align: center; position: relative; min-width: 200px; background: white; padding: 2rem; border-radius: 16px; box-shadow: 0 10px 25px rgba(94, 66, 188, 0.08);">
+                <div style="background: white; padding: 1.5rem; border-radius: 16px; box-shadow: 0 10px 25px rgba(94, 66, 188, 0.08);">
                     <div style="width: 40px; height: 40px; background-color: #D98B76; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 600; margin: 0 auto 1.5rem;">2</div>
-                    <h3 style="font-size: 1.2rem; font-weight: 600; margin-bottom: 1rem;">Monetizable</h3>
+                    <h3 style="font-size: 1.2rem; font-weight: 600; margin-bottom: 1rem; text-align: center;">Monetizable</h3>
                     <p style="color: #71717A; font-size: 0.95rem;">Users can pay for node services through our decentralized crypto payment services.</p>
                 </div>
             </div>
@@ -248,200 +405,110 @@
     </section>
     
     <!-- Investors Section -->
-    <section style="width: 100%; background-color: #FEFAF9; padding: 5rem 0; margin: 0; text-align: center;">
-        <div style="max-width: 1200px; margin: 0 auto; padding: 0 2rem;">
-            <h2 style="font-size: 2.5rem; font-weight: 700; color: #D98B76; margin-bottom: 2rem;">Backed by Leading Investors</h2>
-            <p style="font-size: 1.5rem; color: #71717A; font-weight: 500; margin-bottom: 3rem;">Our vision for a secure, sustainable and decentralized MCP ecosystem is supported by top investors</p>
+    <section style="width: 100%; background-color: #FEFAF9; padding: 3rem 0; margin: 0; text-align: center;">
+        <div class="container">
+            <h2 style="font-size: 2rem; font-weight: 700; color: #D98B76; margin-bottom: 1.5rem;">Backed by Leading Investors</h2>
+            <p style="font-size: 1.2rem; color: #71717A; font-weight: 500; margin-bottom: 2rem;">Our vision for a secure, sustainable and decentralized MCP ecosystem is supported by top investors</p>
             
-            <div style="display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 4rem; margin: 0 auto; max-width: 1000px;">
-                <!--
-                <div>
-                    <img src="/api/placeholder/180/60" alt="SIG Ventures" style="height: 60px; opacity: 0.75; transition: opacity 0.3s, transform 0.3s;" />
-                </div>
-                <div>
-                    <img src="/api/placeholder/180/60" alt="Matrix Partners" style="height: 60px; opacity: 0.75; transition: opacity 0.3s, transform 0.3s;" />
-                </div>
-                <div>
-                    <img src="/api/placeholder/180/60" alt="TRON Ventures" style="height: 60px; opacity: 0.75; transition: opacity 0.3s, transform 0.3s;" />
-                </div>
-                <div>
-                    <img src="/api/placeholder/180/60" alt="ByteTrade" style="height: 60px; opacity: 0.75; transition: opacity 0.3s, transform 0.3s;" />
-                </div>
-                <div>
-                    <img src="/api/placeholder/180/60" alt="Coinbase Ventures" style="height: 60px; opacity: 0.75; transition: opacity 0.3s, transform 0.3s;" />
-                </div>
-                -->
-                <div>Susquehanna Ventures</div>
-                <div>Matrix Partners</div>
-                <div>TRON Ventures</div>
-                <div>Bertelsmann Investments</div>
-                <div>Sky9 Capital</div>
+            <div style="display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 1.5rem; margin: 0 auto;">
+                <div style="padding: 0.8rem; background: white; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.05);">Susquehanna Ventures</div>
+                <div style="padding: 0.8rem; background: white; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.05);">Matrix Partners</div>
+                <div style="padding: 0.8rem; background: white; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.05);">TRON Ventures</div>
+                <div style="padding: 0.8rem; background: white; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.05);">Bertelsmann Investments</div>
+                <div style="padding: 0.8rem; background: white; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.05);">Sky9 Capital</div>
             </div>
         </div>
     </section>
-    
-    <!-- Transform Your MCP Service Section -->
-    <!--
-    <section style="width: 100%; background-color: #F4EBE9; padding: 5rem 0; margin: 0; text-align: center;">
-        <div style="max-width: 1200px; margin: 0 auto; padding: 0 2rem;">
-            <h2 style="font-size: 2.5rem; font-weight: 700; margin-bottom: 1.5rem; color: #B989AA; text-align: center;">Transform Your MCP Service</h2>
-            
-            <p style="font-size: 1.1rem; color: #71717A; max-width: 700px; margin: 0 auto 2rem; text-align: center;">
-                Join pioneers who are building the future of AI tool infrastructure—secure, reliable, verifiable, and sustainable.
-            </p>
-            
-            <div style="display: flex; gap: 1rem; justify-content: center; margin-top: 2rem; flex-wrap: wrap;">
-                <a href="https://github.com/your-repo" style="background-color: #D98B76; color: white; padding: 0.75rem 1.5rem; border-radius: 8px; font-weight: 600; text-decoration: none; transition: background-color 0.3s;">Access on GitHub</a>
-                <a href="#demo" style="background-color: white; color: #D98B76; border: 2px solid #D98B76; padding: 0.75rem 1.5rem; border-radius: 8px; font-weight: 600; text-decoration: none; transition: background-color 0.3s;">Watch Demo</a>
-            </div>
-            
-            <div style="margin-top: 4rem; display: flex; justify-content: center; gap: 4rem; flex-wrap: wrap;">
-                <div style="text-align: center; width: 180px;">
-                    <div style="font-size: 2.5rem; font-weight: bold; color: #D98B76;">100%</div>
-                    <p style="color: #71717A;">Sandbox Security</p>
-                </div>
-                <div style="text-align: center; width: 180px;">
-                    <div style="font-size: 2.5rem; font-weight: bold; color: #D98B76;">99.9%</div>
-                    <p style="color: #71717A;">Proxy Reliability</p>
-                </div>
-                <div style="text-align: center; width: 180px;">
-                    <div style="font-size: 2.5rem; font-weight: bold; color: #D98B76;">Multiple</div>
-                    <p style="color: #71717A;">MCP Servers</p>
-                </div>
-            </div>
-        </div>
-    </section>
-    -->
 
     <!-- Footer -->
-    <footer style="background-color: #333342; color: white; padding: 4rem 0 2rem;">
-    <div style="max-width: 1200px; margin: 0 auto; padding: 0 2rem;">
-        <!-- Top Footer Section -->
-        <div style="display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 3rem; margin-bottom: 3rem;">
+    <footer style="background-color: #333342; color: white; padding: 3rem 0 1.5rem;">
+        <div class="container">
             <!-- Main Company Info -->
-            <div>
-                <div style="font-size: 1.5rem; font-weight: 700; display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem;">
-                    <div style="width: 28px; height: 28px; background-color: #D98B76; border-radius: 6px; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold;">O</div>
-                    <span>OpenMCP</span>
-                </div>
-                <p style="color: #A1A1AA; margin-bottom: 1.5rem;">Share, secure, and monetize your MCP services with a web-based proxy that supports multiple local servers and secure Wasm modules.</p>
-                
-                <!-- Social Links -->
-                <div style="display: flex; gap: 1rem; margin-bottom: 1.5rem;">
-                    <a href="#" style="width: 36px; height: 36px; background-color: rgba(255, 255, 255, 0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: background-color 0.3s;">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="white">
-                            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-                        </svg>
-                    </a>
-                    <a href="#" style="width: 36px; height: 36px; background-color: rgba(255, 255, 255, 0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: background-color 0.3s;">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="white">
-                            <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/>
-                        </svg>
-                    </a>
-                    <a href="#" style="width: 36px; height: 36px; background-color: rgba(255, 255, 255, 0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: background-color 0.3s;">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="white">
-                            <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
-                        </svg>
-                    </a>
-                    <a href="#" style="width: 36px; height: 36px; background-color: rgba(255, 255, 255, 0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: background-color 0.3s;">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="white">
-                            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
-                        </svg>
-                    </a>
-                </div>
-    
-                <!-- Newsletter -->
+            <div class="footer-grid">
                 <div>
-                    <h5 style="font-size: 1rem; font-weight: 600; margin-bottom: 0.5rem;">Stay Updated</h5>
-                    <div style="display: flex; margin-top: 0.75rem;">
-                        <input type="email" placeholder="Your email address" style="flex: 1; padding: 0.75rem; border-radius: 8px 0 0 8px; border: none; background-color: rgba(255, 255, 255, 0.1); color: white;">
-                        <button style="background-color: #D98B76; color: white; padding: 0.75rem 1rem; border-radius: 0 8px 8px 0; border: none; font-weight: 500;">Subscribe</button>
+                    <div style="font-size: 1.5rem; font-weight: 700; display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem;">
+                        <div style="width: 28px; height: 28px; background-color: #D98B76; border-radius: 6px; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold;">O</div>
+                        <span>OpenMCP</span>
+                    </div>
+                    <p style="color: #A1A1AA; margin-bottom: 1.5rem;">Share, secure, and monetize your MCP services with a web-based proxy that supports multiple local servers and secure Wasm modules.</p>
+                    
+                    <!-- Social Links -->
+                    <div style="display: flex; gap: 1rem; margin-bottom: 1.5rem; flex-wrap: wrap;">
+                        <a href="#" style="width: 36px; height: 36px; background-color: rgba(255, 255, 255, 0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: background-color 0.3s;">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="white">
+                                <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                            </svg>
+                        </a>
+                        <a href="#" style="width: 36px; height: 36px; background-color: rgba(255, 255, 255, 0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: background-color 0.3s;">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="white">
+                                <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/>
+                            </svg>
+                        </a>
+                        <a href="#" style="width: 36px; height: 36px; background-color: rgba(255, 255, 255, 0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: background-color 0.3s;">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="white">
+                                <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                            </svg>
+                        </a>
+                    </div>
+    
+                    <!-- Newsletter -->
+                    <div>
+                        <h5 style="font-size: 1rem; font-weight: 600; margin-bottom: 0.5rem;">Stay Updated</h5>
+                        <div style="display: flex; margin-top: 0.75rem; flex-direction: column;">
+                            <input type="email" placeholder="Your email address" style="padding: 0.75rem; border-radius: 8px; border: none; background-color: rgba(255, 255, 255, 0.1); color: white; margin-bottom: 0.5rem;">
+                            <button style="background-color: #D98B76; color: white; padding: 0.75rem 1rem; border-radius: 8px; border: none; font-weight: 500;">Subscribe</button>
+                        </div>
                     </div>
                 </div>
-            </div>
-    
-            <!-- Product Links -->
-            <!--
-            <div>
-                <h4 style="font-size: 1.1rem; font-weight: 600; margin-bottom: 1.5rem;">Product</h4>
-                <ul style="list-style: none;">
-                    <li style="margin-bottom: 0.8rem;"><a href="#features" style="color: #A1A1AA; text-decoration: none; transition: color 0.3s;">Features</a></li>
-                    <li style="margin-bottom: 0.8rem;"><a href="#" style="color: #A1A1AA; text-decoration: none; transition: color 0.3s;">Pricing</a></li>
-                    <li style="margin-bottom: 0.8rem;"><a href="#" style="color: #A1A1AA; text-decoration: none; transition: color 0.3s;">Documentation</a></li>
-                    <li style="margin-bottom: 0.8rem;"><a href="#" style="color: #A1A1AA; text-decoration: none; transition: color 0.3s;">Security</a></li>
-                    <li style="margin-bottom: 0.8rem;"><a href="#" style="color: #A1A1AA; text-decoration: none; transition: color 0.3s;">Wasm Modules</a></li>
-                    <li style="margin-bottom: 0.8rem;"><a href="#" style="color: #A1A1AA; text-decoration: none; transition: color 0.3s;">Enterprise</a></li>
-                </ul>
-            </div>
-            -->
-    
-            <!-- Resources Links -->
-            <!--
-            <div>
-                <h4 style="font-size: 1.1rem; font-weight: 600; margin-bottom: 1.5rem;">Resources</h4>
-                <ul style="list-style: none;">
-                    <li style="margin-bottom: 0.8rem;"><a href="#" style="color: #A1A1AA; text-decoration: none; transition: color 0.3s;">Blog</a></li>
-                    <li style="margin-bottom: 0.8rem;"><a href="#" style="color: #A1A1AA; text-decoration: none; transition: color 0.3s;">Tutorials</a></li>
-                    <li style="margin-bottom: 0.8rem;"><a href="#" style="color: #A1A1AA; text-decoration: none; transition: color 0.3s;">Support Center</a></li>
-                    <li style="margin-bottom: 0.8rem;"><a href="#" style="color: #A1A1AA; text-decoration: none; transition: color 0.3s;">API Reference</a></li>
-                    <li style="margin-bottom: 0.8rem;"><a href="#" style="color: #A1A1AA; text-decoration: none; transition: color 0.3s;">Community</a></li>
-                    <li style="margin-bottom: 0.8rem;"><a href="#" style="color: #A1A1AA; text-decoration: none; transition: color 0.3s;">Status</a></li>
-                </ul>
-            </div>
-            -->
-    
-            <!-- Company Links -->
-            <!--
-            <div>
-                <h4 style="font-size: 1.1rem; font-weight: 600; margin-bottom: 1.5rem;">Company</h4>
-                <ul style="list-style: none;">
-                    <li style="margin-bottom: 0.8rem;"><a href="#" style="color: #A1A1AA; text-decoration: none; transition: color 0.3s;">About</a></li>
-                    <li style="margin-bottom: 0.8rem;"><a href="#" style="color: #A1A1AA; text-decoration: none; transition: color 0.3s;">Careers</a></li>
-                    <li style="margin-bottom: 0.8rem;"><a href="#" style="color: #A1A1AA; text-decoration: none; transition: color 0.3s;">Contact</a></li>
-                    <li style="margin-bottom: 0.8rem;"><a href="#" style="color: #A1A1AA; text-decoration: none; transition: color 0.3s;">Partners</a></li>
-                    <li style="margin-bottom: 0.8rem;"><a href="#" style="color: #A1A1AA; text-decoration: none; transition: color 0.3s;">Press</a></li>
-                    <li style="margin-bottom: 0.8rem;"><a href="#" style="color: #A1A1AA; text-decoration: none; transition: color 0.3s;">Legal</a></li>
-                </ul>
-            </div>
-            -->
-        </div>
-    
-        <!-- Middle Footer Section - Featured Links -->
-        <!--
-        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; padding: 1.5rem 0; border-top: 1px solid rgba(255, 255, 255, 0.1); border-bottom: 1px solid rgba(255, 255, 255, 0.1); margin-bottom: 2rem;">
-            <div style="display: flex; flex-wrap: wrap; gap: 2rem;">
-                <a href="#" style="color: #D98B76; text-decoration: none; font-weight: 500;">Download SDK</a>
-                <a href="#" style="color: #D98B76; text-decoration: none; font-weight: 500;">View on GitHub</a>
-                <a href="#" style="color: #D98B76; text-decoration: none; font-weight: 500;">Documentation</a>
-                <a href="#" style="color: #D98B76; text-decoration: none; font-weight: 500;">Join Discord</a>
-            </div>
-    
-            <div style="display: flex; align-items: center; gap: 1rem; margin-top: 1rem; flex-wrap: wrap;">
-                <div style="background-color: rgba(255, 255, 255, 0.1); border-radius: 20px; padding: 0.5rem 1rem; font-size: 0.8rem; display: flex; align-items: center; gap: 0.5rem;">
-                    <span style="width: 8px; height: 8px; background-color: #4CAF50; border-radius: 50%;"></span>
-                    All Systems Operational
+                
+                <!-- Newsletter form for tablets and larger displays -->
+                <div class="tablet-newsletter" style="display: none;">
+                    @media (min-width: 768px) {
+                        .tablet-newsletter {
+                            display: block;
+                        }
+                        
+                        .footer-grid div:first-child .newsletter-box {
+                            display: none;
+                        }
+                    }
                 </div>
-                <a href="#" style="color: #A1A1AA; text-decoration: none; font-size: 0.8rem;">Status Page</a>
+            </div>
+            
+            <!-- Bottom Footer Section -->
+            <div style="display: flex; justify-content: center; align-items: center; flex-wrap: wrap; margin-top: 2rem; padding-top: 1rem; border-top: 1px solid rgba(255,255,255,0.1);">
+                <div style="color: #A1A1AA; font-size: 0.9rem; text-align: center;">
+                    © 2025 OpenMCP. All rights reserved.
+                </div>
             </div>
         </div>
-        -->
-        
-        <!-- Bottom Footer Section -->
-        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;">
-            <div style="color: #A1A1AA; font-size: 0.9rem;">
-                © 2025 OpenMCP. All rights reserved.
-            </div>
-            <!--
-            <div style="display: flex; gap: 2rem; flex-wrap: wrap; margin-top: 1rem;">
-                <a href="#" style="color: #A1A1AA; text-decoration: none; font-size: 0.9rem;">Privacy Policy</a>
-                <a href="#" style="color: #A1A1AA; text-decoration: none; font-size: 0.9rem;">Terms of Service</a>
-                <a href="#" style="color: #A1A1AA; text-decoration: none; font-size: 0.9rem;">Cookie Policy</a>
-                <a href="#" style="color: #A1A1AA; text-decoration: none; font-size: 0.9rem;">Sitemap</a>
-            </div>
-            -->
-        </div>
-    </div>
     </footer>
 
+    <!-- JavaScript for mobile menu toggle -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuBtn = document.querySelector('.mobile-menu-btn');
+            const navMenu = document.querySelector('.nav-menu');
+            
+            menuBtn.addEventListener('click', function() {
+                navMenu.classList.toggle('active');
+            });
+            
+            // Close menu when clicking on a nav link
+            const navLinks = document.querySelectorAll('.nav-menu a');
+            navLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    navMenu.classList.remove('active');
+                });
+            });
+            
+            // Close menu when clicking outside
+            document.addEventListener('click', function(event) {
+                if (!event.target.closest('.mobile-menu-btn') && !event.target.closest('.nav-menu')) {
+                    navMenu.classList.remove('active');
+                }
+            });
+        });
+    </script>
 </body>
 </html>
