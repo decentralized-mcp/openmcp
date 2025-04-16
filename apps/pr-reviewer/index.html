@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GitHub PR Reviewer</title>
+    <link rel="icon" href="/podcasts/favicon.ico" type="image/x-icon">
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            font-size: 1vw;
+        }
+
+        h1 {
+            color: #333;
+            font-size: 2vw;
+            margin: 1.5vw 0;
+        }
+
+        h2 {
+            text-align: center;
+            font-size: 1.5vw;
+            margin: 0 0 1.5vw;
+        }
+
+        form {
+            flex: 1;
+            margin: 1.25vw;
+            width: 100%;
+        }
+
+        .section {
+            background: #fff;
+            border-radius: 0.5vw;
+            box-shadow: 0 0 0.625vw rgba(0, 0, 0, 0.1);
+            padding: 1.25vw;
+            margin-bottom: 1.25vw;
+        }
+
+        .section:last-child {
+            margin-bottom: 0;
+        }
+
+        .line {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.25vw;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            padding-right: 0.3125vw;
+        }
+
+        input[type="text"], input[type="number"], select, .prompt-textarea {
+            flex: 1;
+            line-height: 1.5vw;
+            font-size: 1.3vw;
+            padding: 0.625vw;
+            border: 0.0625vw solid #ccc;
+            border-radius: 0.25vw;
+        }
+
+        button {
+            background-color: #007bff;
+            color: white;
+            padding: 0.625vw 0.9375vw;
+            border: none;
+            border-radius: 0.25vw;
+            font-size: 1vw;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        #response, #editArea {
+            margin-top: 1.25vw;
+            padding: 0.625vw;
+            background: #e9ecef;
+            border-radius: 0.25vw;
+            max-height: calc(100% - 4.75vw);
+            overflow-y: auto;
+        }
+
+        #editArea {
+            display: none;
+            height: 100%;
+            font-size: 1vw;
+            width: calc(100% - 1.25vw);
+            padding-top: 2vw;
+        }
+
+        .centered {
+            display: flex;
+            justify-content: center;
+            width: 60vw;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-top: 0;
+        }
+
+        .input-full-width, .prompt-textarea {
+            width: calc(100% - 1.25vw);
+            margin-bottom: 0.5vw;
+        }
+
+        #response-part {
+            flex: 1;
+            /*display: block;*/
+            display: none;
+            border-radius: 0.5vw;
+            box-shadow: 0 0 0.625vw rgba(0, 0, 0, 0.1);
+            margin: 1.25vw;
+            padding: 1.25vw;
+            width: 25vw;
+        }
+
+        #copyCode {
+            margin-right: 2.5vw;
+        }
+
+        #saveEdit {
+            margin-right: 3.5vw;
+        }
+
+        #editCode, #cancelEdit {
+            margin-right: 0;
+        }
+
+        #saveEdit, #cancelEdit {
+            margin-top: 0.5vw;
+        }
+
+        .response-button {
+            /*display: block;*/
+            display: none;
+            position: absolute;
+            margin-top: 0.5vw;
+            right: 3vw;
+            padding: 0.15vw 0.4vw;
+            font-size: 0.7vw;
+            background-color: #c7c7c7;
+            border-radius: 0.2vw;
+            cursor: pointer;
+        }
+
+        select {
+            -webkit-appearance: none !important;
+            -moz-appearance: none !important;
+            appearance: none !important;
+        }
+
+        @media (max-width: 760px) {
+            body {
+                font-size: 4vw;
+            }
+
+            h1 {
+                font-size: 8vw;
+            }
+
+            h2 {
+                font-size: 6vw;
+            }
+
+            .prompt-textarea {
+                height: 16vw !important;
+            }
+
+            input[type="text"], input[type="number"], select, .prompt-textarea {
+                height: 4vw;
+                font-size: 4vw;
+                line-height: 4vw;
+                padding: 3vw;
+                width: calc(100% - 20vw);
+                border-radius: 2vw;
+                margin: 2vw 0;
+            }
+
+            select {
+                width: calc(100% - 14vw) !important;
+            }
+
+            .line {
+                flex-direction: column;
+            }
+
+            .input-full-width, .prompt-textarea {
+                margin: 2vw 7vw !important;
+            }
+
+            .section {
+                padding: 4vw;
+                border-radius: 2.5vw;
+            }
+
+            button {
+                padding: 2vw 3vw;
+                font-size: 4vw;
+                width: calc(100% - 14vw);
+                margin: 1vw 7vw;
+                border-radius: 1vw;
+            }
+
+            .centered {
+                flex-direction: column;
+                width: 90vw;
+            }
+
+            body {
+                overflow-y: auto;
+            }
+
+            #response-part {
+                width: calc(100% - 2.5vw);
+                border-radius: 2.5vw;
+            }
+
+            .response-button {
+                margin-top: 1.5vw;
+                padding: 0.55vw 1.9vw;
+                font-size: 2.7vw;
+                border-radius: 1.2vw;
+            }
+
+            #editArea {
+                height: 100vw;
+                font-size: 4vw;
+                padding-top: 5vw;
+            }
+
+            #copyCode {
+                margin-right: 10.5vw;
+            }
+
+            #saveEdit {
+                margin-right: 13.5vw;
+            }
+
+            #editCode, #cancelEdit {
+                margin-right: 0.5vw;
+            }
+
+            #saveEdit, #cancelEdit {
+                margin-top: 1.5vw;
+            }
+        }
+    </style>
+</head>
+<body>
+<h1>GitHub PR Reviewer</h1>
+<div class="centered">
+    <form id="prForm">
+        <div class="section">
+            <div class="line">
+                <label for="llmConfig">LLM Configuration:</label>
+                <select style="width:100%;" id="llmConfig" name="llmConfig" required>
+                </select>
+            </div>
+            <div id="customConfig" style="display: none;">
+                <div class="line">
+                    <label for="llmEndpoint">LLM API Endpoint:</label>
+                    <input value="https://coder.gaia.domains/v1" type="text" id="llmEndpoint" name="llmEndpoint"
+                           required>
+                </div>
+                <div class="line">
+                    <label for="llmModelName">LLM Model Name:</label>
+                    <input value="Qwen2.5-Coder-32B-Instruct-Q5_K_M" type="text" id="llmModelName" name="llmModelName"
+                           required>
+                </div>
+                <div class="line">
+                    <label for="llmCtxSize">LLM Context Size:</label>
+                    <input value="16384" type="number" id="llmCtxSize" name="llmCtxSize" required>
+                </div>
+            </div>
+            <div class="line">
+                <label for="llmApiKey">LLM API Key:</label>
+                <input type="text" id="llmApiKey" name="llmApiKey" placeholder="Optional">
+            </div>
+            <span style="color: #b2b2b2;">* You can get our API key through <a
+                    href="https://docs.gaianet.ai/getting-started/authentication" style="color: #626262;"
+                    target="_blank">this documentation</a>.</span>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title"><label for="prUrl">GITHUB PR URL</label></h2>
+            <input class="input-full-width" type="text" id="prUrl" name="prUrl" required>
+            <textarea class="prompt-textarea" rows="3" placeholder="Instructions on what and how to conduct the review" id="reviewPrompt" name="reviewPrompt"></textarea>
+            <textarea class="prompt-textarea" style="display: none;" rows="3" placeholder="Description of the repo" id="description" name="description"></textarea>
+            <div style="display: flex;align-items: center;margin-bottom: 0.75vw;">
+                <input type="checkbox" id="useLlm" name="useLlm" checked><label for="useLlm">Use llms.txt in the repo</label>
+            </div>
+            <button class="button-large" type="submit">Submit</button>
+        </div>
+    </form>
+    <div style="position: relative;" id="response-part">
+        <h2>Response</h2>
+        <div id="copyCode" class="response-button">Copy</div>
+        <div id="editCode" class="response-button">Edit</div>
+        <div id="saveEdit" class="response-button">Save</div>
+        <div id="cancelEdit" class="response-button">Cancel</div>
+        <div id="response"></div>
+        <textarea id="editArea"></textarea>
+    </div>
+</div>
+
+<script>
+    let mdData = '';
+    const path = window.location.pathname;
+
+    const segments = path.split('/').filter(segment => segment);
+    if (segments[0]) {
+        prUrl = `https://github.com/${segments[0]}`
+        if (segments[1]) {
+            prUrl += `/${segments[1]}`
+            if (segments[2]) {
+                prUrl += `/pull/${segments[2]}`
+            }
+        }
+    }
+    const modelData = [
+        {
+            name: "Gaia — Qwen Coder 32b",
+            url: "https://coder.gaia.domains/v1",
+            model: "Qwen2.5-Coder-32B-Instruct-Q5_K_M",
+            memory: 32768
+        },
+        {
+            name: "Gaia — Qwen Coder with Rust knowledge",
+            url: "https://rustcoder.gaia.domains/v1",
+            model: "Qwen2.5-Coder-7B-Instruct-Q5_K_M",
+            memory: 32768
+        },{
+            name: "Gaia — Gemma 3 27b",
+            url: "https://rustcoder.gaia.domains/v1",
+            model: "Qwen2.5-Coder-7B-Instruct-Q5_K_M",
+            memory: 32768
+        },
+        {
+            name: "Gaia — Llama 3.3 70b",
+            url: "https://0x9fcf7888963793472bfcb8c14f4b6b47a7462f17.gaia.domains/v1",
+            model: "Gemma-3-27b",
+            memory: 32768
+        },
+        {
+            name: "Gaia — DeepSeek R1 distilled Qwen 32b",
+            url: "https://deepseek.gaia.domains/v1",
+            model: "DeepSeek-R1-Distill-Qwen-32B-Q5_K_M",
+            memory: 32768
+        },
+        {
+            name: "OpenAI — gpt-4o",
+            url: "https://api.openai.com/v1",
+            model: "gpt-4o",
+            memory: 128000
+        },
+        {
+            name: "OpenAI — o1",
+            url: "https://api.openai.com/v1",
+            model: "o1",
+            memory: 200000
+        },
+        {
+            name: "OpenAI — o3-mini",
+            url: "https://api.openai.com/v1",
+            model: "o3-mini",
+            memory: 200000
+        },
+        {
+            name: "Antropic — Claude 3.7",
+            url: "https://openrouter.ai/api/v1",
+            model: "anthropic/claude-3.7-sonnet",
+            memory: 200000
+        },
+        {
+            name: "Antropic — Claude 3.5",
+            url: "https://openrouter.ai/api/v1",
+            model: "anthropic/claude-3.5-sonnet",
+            memory: 200000
+        },
+        {
+            name: "Google — Gemini 2.0 Flash",
+            url: "https://openrouter.ai/api/v1",
+            model: "google/gemini-2.0-flash-001",
+            memory: 1000000
+        },
+        {
+            name: "Google — Gemini 2.0",
+            url: "https://openrouter.ai/api/v1",
+            model: "google/gemini-2.0-pro-exp-02-05:free",
+            memory: 2000000
+        },
+        {
+            name: "Mistral — Codestral 2501",
+            url: "https://openrouter.ai/api/v1",
+            model: "mistralai/codestral-2501",
+            memory: 256000
+        },
+        {
+            name: "DeepSeek — R1",
+            url: "https://openrouter.ai/api/v1",
+            model: "deepseek/deepseek-r1",
+            memory: 128000
+        }
+    ];
+
+    const selectElement = document.getElementById('llmConfig');
+
+    // 动态填充select的options
+    modelData.forEach((model, index) => {
+        if (index === 0) {
+            document.getElementById('llmEndpoint').value = model.url;
+            document.getElementById('llmModelName').value = model.model;
+            document.getElementById('llmCtxSize').value = model.memory;
+        }
+        const option = document.createElement('option');
+        option.value = model.url;
+        option.dataset.model = model.model;
+        option.dataset.memory = model.memory;
+        option.textContent = model.name;
+        selectElement.appendChild(option);
+    });
+
+    const option = document.createElement('option');
+    option.value = "Custom";
+    option.textContent = "Custom";
+    selectElement.appendChild(option);
+
+    selectElement.addEventListener('change', function () {
+        const selectedOption = selectElement.options[selectElement.selectedIndex];
+
+        if (selectedOption.value === "Custom") {
+            document.getElementById('customConfig').style.display = "block";
+        } else {
+            const modelUrl = selectedOption.value;
+            const modelName = selectedOption.dataset.model;
+            const modelMemory = selectedOption.dataset.memory;
+            document.getElementById('llmApiKey').required = !modelUrl.includes("gaia");
+            document.getElementById('llmApiKey').placeholder = modelUrl.includes("gaia") ? "Optional" : "";
+
+            document.getElementById('llmEndpoint').value = modelUrl;
+            document.getElementById('llmModelName').value = modelName;
+            document.getElementById('llmCtxSize').value = modelMemory;
+
+            document.getElementById('customConfig').style.display = "none";
+        }
+    });
+
+    async function copyContent(event) {
+        const clickedElement = event.currentTarget;
+        try {
+            await navigator.clipboard.writeText(mdData);
+            clickedElement.innerText = "Copied!";
+            setTimeout(() => {
+                clickedElement.innerText = "Copy";
+            }, 2000);
+        } catch (err) {
+            console.log(err);
+        }
+    }
+
+    function editContent() {
+        document.getElementById('response').style.display = 'none';
+        document.getElementById('editArea').style.display = 'block';
+        document.getElementById('editArea').value = mdData;
+        document.getElementById('copyCode').style.display = 'none';
+        document.getElementById('editCode').style.display = 'none';
+        document.getElementById('saveEdit').style.display = 'block';
+        document.getElementById('cancelEdit').style.display = 'block';
+    }
+
+    function saveContent() {
+        mdData = document.getElementById('editArea').value;
+        document.getElementById('response').innerHTML = marked.parse(mdData);
+        document.getElementById('response').style.display = 'block';
+        document.getElementById('editArea').style.display = 'none';
+        document.getElementById('copyCode').style.display = 'block';
+        document.getElementById('editCode').style.display = 'block';
+        document.getElementById('saveEdit').style.display = 'none';
+        document.getElementById('cancelEdit').style.display = 'none';
+    }
+
+    function cancelEdit() {
+        document.getElementById('response').style.display = 'block';
+        document.getElementById('editArea').style.display = 'none';
+        document.getElementById('copyCode').style.display = 'block';
+        document.getElementById('editCode').style.display = 'block';
+        document.getElementById('saveEdit').style.display = 'none';
+        document.getElementById('cancelEdit').style.display = 'none';
+    }
+
+    document.getElementById("copyCode").addEventListener('click', copyContent);
+    document.getElementById("editCode").addEventListener('click', editContent);
+    document.getElementById("saveEdit").addEventListener('click', saveContent);
+    document.getElementById("cancelEdit").addEventListener('click', cancelEdit);
+
+    function updateBHeight() {
+        const sections = document.querySelectorAll('.section');
+        let totalHeight = 0;
+
+        sections.forEach(section => {
+            totalHeight += section.offsetHeight;
+        });
+
+        const b = document.getElementById('response-part');
+        b.style.height = "calc(" + totalHeight + "px - 1.25vw)";
+    }
+
+    document.getElementById('useLlm').addEventListener('change', function () {
+        const checked = document.getElementById('useLlm').checked;
+        document.getElementById('description').style.display = checked ? "none" : "block";
+    });
+
+    window.onload = updateBHeight;
+    window.onresize = updateBHeight;
+    document.getElementById('prForm').addEventListener('submit', async function (event) {
+        event.preventDefault();
+        document.getElementById('copyCode').style.display = "none";
+        document.getElementById('editCode').style.display = "none";
+
+        const prUrl = document.getElementById('prUrl').value;
+        const llmEndpoint = document.getElementById('llmEndpoint').value;
+        const llmModelName = document.getElementById('llmModelName').value;
+        const llmCtxSize = document.getElementById('llmCtxSize').value;
+        const llmApiKey = document.getElementById('llmApiKey').value;
+
+        const urlPattern = /https:\/\/github\.com\/([^\/]+)\/([^\/]+)\/pull\/(\d+)/;
+        const match = prUrl.match(urlPattern);
+
+        if (!match) {
+            alert('Invalid PR URL');
+            return;
+        }
+
+        document.getElementById('response-part').style.display = "block";
+        document.getElementById('response').innerText = 'Please wait … It could be a few minutes';
+        updateBHeight();
+
+        const githubOwner = match[1];
+        const githubRepo = match[2];
+        const githubPrNumber = match[3];
+
+        let fileUrl = `https://raw.githubusercontent.com/${githubOwner}/${githubRepo}/main/llms.txt`;
+
+        let systemPrompt
+
+        try {
+            if (!document.getElementById('useLlm').checked) {
+                let response = await fetch(fileUrl);
+                if (!response.ok) {
+                    console.log('Failed to fetch file from GitHub');
+                }
+            }else {
+                systemPrompt = document.getElementById('description').value;
+            }
+
+            const reviewPrompt = document.getElementById('reviewPrompt').value;
+
+            const requestData = {
+                github_owner: githubOwner,
+                github_repo: githubRepo,
+                github_pr_number: parseInt(githubPrNumber, 0),
+                llm_api_endpoint: llmEndpoint,
+                llm_ctx_size: parseInt(llmCtxSize, 0),
+                llm_model_name: llmModelName,
+                llm_api_key: llmApiKey,
+                system_prompt: systemPrompt,
+                review_prompt: reviewPrompt
+            };
+
+            const webhookUrl = 'https://code.flows.network/webhook/o9689KdmSIcgOIAOFUs9/review';
+            const webhookResponse = await fetch(webhookUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(requestData)
+            });
+
+            if (!webhookResponse.ok) {
+                console.log('Failed to call webhook');
+                document.getElementById('response').innerText = 'Error ' + webhookResponse.statusText + ': ' + await webhookResponse.text();
+            } else {
+                console.log('Webhook called successfully');
+                mdData = await webhookResponse.text()
+                document.getElementById('response').innerHTML = marked.parse(mdData);
+                document.getElementById('copyCode').style.display = "block";
+                document.getElementById('editCode').style.display = "block";
+            }
+            updateBHeight();
+
+        } catch (error) {
+            document.getElementById('response').innerText = `Error: ${error.message}`;
+        }
+    });
+</script>
+</body>
+</html>
