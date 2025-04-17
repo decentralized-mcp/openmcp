@@ -332,7 +332,7 @@
             </div>
             <div id="GSVNode" class="line">
                 <label for="GSVNodeURL">Gaia node:</label>
-                <input type="text" id="GSVNodeURL" name="GSVNodeURL" value="https://0x66b496fba1fdff4237cca9ac597d7171126369c8.gaia.domains/v1/audio/speech" placeholder="Gaia node">
+                <input type="text" id="GSVNodeURL" name="GSVNodeURL" value="https://0xc8d2ade4c6ced63625f7138e26ad93f44780f2ef.gaia.domains/v1/audio/speech" placeholder="Gaia node">
             </div>
             <div id="fishAudio" class="line" style="display: none;">
                 <label id="speechLlmTitle" for="fishAPIToken">fish.audio API Token:</label>
@@ -583,9 +583,11 @@
             if (selectedLangValue === "ZH") {
                 document.getElementById('speaker1Id').value = "cctv_male";
                 document.getElementById('speaker2Id').value = "cctv_female";
+                document.getElementById('GSVNodeURL').value = "https://0x66b496fba1fdff4237cca9ac597d7171126369c8.gaia.domains/v1/audio/speech";
             }else {
                 document.getElementById('speaker1Id').value = "cooper";
                 document.getElementById('speaker2Id').value = "kelly";
+                document.getElementById('GSVNodeURL').value = "https://0xc8d2ade4c6ced63625f7138e26ad93f44780f2ef.gaia.domains/v1/audio/speech";
             }
         } else {
             document.getElementById('GSVNode').style.display = "none";
@@ -614,13 +616,14 @@
           if (selectedLangValue === "ZH") {
               document.getElementById('speaker1Id').value = "cctv_male";
               document.getElementById('speaker2Id').value = "cctv_female";
-              console.log(document.getElementById('podcastPrompt').value)
+              document.getElementById('GSVNodeURL').value = "https://0x66b496fba1fdff4237cca9ac597d7171126369c8.gaia.domains/v1/audio/speech";
               if(document.getElementById('podcastPrompt').value === defaultEnglishPrompt || document.getElementById('podcastPrompt').value === "") {
                   document.getElementById('podcastPrompt').value = defaultChinesePrompt;
               }
           }else {
               document.getElementById('speaker1Id').value = "cooper";
               document.getElementById('speaker2Id').value = "kelly";
+              document.getElementById('GSVNodeURL').value = "https://0xc8d2ade4c6ced63625f7138e26ad93f44780f2ef.gaia.domains/v1/audio/speech";
               if(document.getElementById('podcastPrompt').value === defaultChinesePrompt || document.getElementById('podcastPrompt').value === "") {
                   document.getElementById('podcastPrompt').value = defaultEnglishPrompt;
               }
