@@ -346,6 +346,14 @@
                 <label id="speaker2Title" for="speaker2Id">Speaker #2 Name:</label>
                 <input type="text" id="speaker2Id" name="speaker2Id" value="kelly" required>
             </div>
+            <div class="line">
+                <label for="virtual">Pick Your Virtual Characters:</label>
+                <select style="width:100%;" id="virtual" name="virtual" required>
+                    <option value="0">Noah & Emma</option>
+                    <option value="1">Black & White Cat</option>
+                </select>
+            </div>
+            <img id="vtuberImg" style="width: 100%;" src="/apps/podcasts/human.jpg"/>
         </div>
     </div>
     <div style="margin:1.25vw;display: flex;flex-direction: column;" class="part-side section">
@@ -607,36 +615,36 @@
     const languageElement = document.getElementById('selectLanguage');
 
     languageElement.addEventListener('change', function () {
-      const selectedLangOption = languageElement.options[languageElement.selectedIndex];
-      const selectedLangValue = selectedLangOption.value;
-      const selectedModelOption = speechModelElement.options[speechModelElement.selectedIndex];
-      const selectedModelValue = selectedModelOption.value;
+        const selectedLangOption = languageElement.options[languageElement.selectedIndex];
+        const selectedLangValue = selectedLangOption.value;
+        const selectedModelOption = speechModelElement.options[speechModelElement.selectedIndex];
+        const selectedModelValue = selectedModelOption.value;
 
-      if (selectedModelValue === "GSV") {
-          if (selectedLangValue === "ZH") {
-              document.getElementById('speaker1Id').value = "cctv_male";
-              document.getElementById('speaker2Id').value = "cctv_female";
-              document.getElementById('GSVNodeURL').value = "https://0x66b496fba1fdff4237cca9ac597d7171126369c8.gaia.domains/v1/audio/speech";
-              if(document.getElementById('podcastPrompt').value === defaultEnglishPrompt || document.getElementById('podcastPrompt').value === "") {
-                  document.getElementById('podcastPrompt').value = defaultChinesePrompt;
-              }
-          }else {
-              document.getElementById('speaker1Id').value = "cooper";
-              document.getElementById('speaker2Id').value = "kelly";
-              document.getElementById('GSVNodeURL').value = "https://0xc8d2ade4c6ced63625f7138e26ad93f44780f2ef.gaia.domains/v1/audio/speech";
-              if(document.getElementById('podcastPrompt').value === defaultChinesePrompt || document.getElementById('podcastPrompt').value === "") {
-                  document.getElementById('podcastPrompt').value = defaultEnglishPrompt;
-              }
-          }
-      }else {
-          if (selectedLangValue === "ZH") {
-              document.getElementById('speaker1Id').value = "59cb5986671546eaa6ca8ae6f29f6d22";
-              document.getElementById('speaker2Id').value = "fe14fb17940d42fa8465741401bc309a";
-          }else {
-              document.getElementById('speaker1Id').value = "256e1a3007a74904a91d132d1e9bf0aa";
-              document.getElementById('speaker2Id').value = "0fb74894823f483c9b2f27cabaad841d";
-          }
-      }
+        if (selectedModelValue === "GSV") {
+            if (selectedLangValue === "ZH") {
+                document.getElementById('speaker1Id').value = "cctv_male";
+                document.getElementById('speaker2Id').value = "cctv_female";
+                document.getElementById('GSVNodeURL').value = "https://0x66b496fba1fdff4237cca9ac597d7171126369c8.gaia.domains/v1/audio/speech";
+                if(document.getElementById('podcastPrompt').value === defaultEnglishPrompt || document.getElementById('podcastPrompt').value === "") {
+                    document.getElementById('podcastPrompt').value = defaultChinesePrompt;
+                }
+            }else {
+                document.getElementById('speaker1Id').value = "cooper";
+                document.getElementById('speaker2Id').value = "kelly";
+                document.getElementById('GSVNodeURL').value = "https://0xc8d2ade4c6ced63625f7138e26ad93f44780f2ef.gaia.domains/v1/audio/speech";
+                if(document.getElementById('podcastPrompt').value === defaultChinesePrompt || document.getElementById('podcastPrompt').value === "") {
+                    document.getElementById('podcastPrompt').value = defaultEnglishPrompt;
+                }
+            }
+        }else {
+            if (selectedLangValue === "ZH") {
+                document.getElementById('speaker1Id').value = "59cb5986671546eaa6ca8ae6f29f6d22";
+                document.getElementById('speaker2Id').value = "fe14fb17940d42fa8465741401bc309a";
+            }else {
+                document.getElementById('speaker1Id').value = "256e1a3007a74904a91d132d1e9bf0aa";
+                document.getElementById('speaker2Id').value = "0fb74894823f483c9b2f27cabaad841d";
+            }
+        }
     })
 
     const resultTypeElement = document.getElementById('resultType');
@@ -650,6 +658,13 @@
         }
     })
 
+    const virtualElement = document.getElementById('virtual');
+
+    virtualElement.addEventListener('change', function () {
+        const selectedVirtual = virtualElement.value;
+        document.getElementById('vtuberImg').src = `/apps/podcasts/${selectedVirtual === "0"? "human" : "cat"}.jpg`;
+    })
+
     document.getElementById('prForm').addEventListener('submit', async function (event) {
         event.preventDefault();
         const onlyAudio = document.getElementById('resultType').value === 'audio';
@@ -660,6 +675,13 @@
         const podcast_prompt = document.getElementById('podcastPrompt').value;
         const llmEndpoint = document.getElementById('llmEndpoint').value;
         const llmApiKey = document.getElementById('llmApiKey').value;
+        const scene_index = document.getElementById('virtual').value;
+        document.getElementById('vtuberImg').src = `./${selectedVirtual}.jpg`;
+        if (selectedVirtual === "human") {
+
+        } else {
+            document.getElementById('videoNameLine').style.display = "none";
+        }
         let tts_engine = {}
         let speaker1 = []
         let speaker2 = []
@@ -671,14 +693,8 @@
                 "type": SpeechModel,
                 "url": GSVNodeURL
             }
-            speaker1 = [
-                "Noah",
-                speaker1Name
-            ]
-            speaker2 = [
-                "Emma",
-                speaker2Name
-            ]
+            speaker1 = speaker1Name
+            speaker2 = speaker2Name
         }else {
             const fishAPIToken = document.getElementById('fishAPIToken').value;
             const speaker1ApiKey = document.getElementById('speaker1Id').value;
@@ -687,14 +703,8 @@
                 "type": "Fish",
                 "token": fishAPIToken
             }
-            speaker1 = [
-                "Noah",
-                speaker1ApiKey
-            ]
-            speaker2 = [
-                "Emma",
-                speaker2ApiKey
-            ]
+            speaker1 = speaker1ApiKey
+            speaker2 = speaker2ApiKey
         }
 
         try {
@@ -705,6 +715,7 @@
                 "tts_engine": tts_engine,
                 "callback_url": "",
                 "xtuis_token":"",
+                "scene_index":scene_index,
                 "speaker1": speaker1,
                 "speaker2": speaker2,
                 "llm_backend": {
