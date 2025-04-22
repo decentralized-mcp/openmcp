@@ -676,12 +676,6 @@
         const llmEndpoint = document.getElementById('llmEndpoint').value;
         const llmApiKey = document.getElementById('llmApiKey').value;
         const scene_index = document.getElementById('virtual').value;
-        document.getElementById('vtuberImg').src = `./${selectedVirtual}.jpg`;
-        if (selectedVirtual === "human") {
-
-        } else {
-            document.getElementById('videoNameLine').style.display = "none";
-        }
         let tts_engine = {}
         let speaker1 = []
         let speaker2 = []
