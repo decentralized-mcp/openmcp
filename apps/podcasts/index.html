@@ -557,6 +557,9 @@
         const selectedOption = llmElement.options[llmElement.selectedIndex];
 
         if (selectedOption.value === "Custom") {
+            document.getElementById('llmEndpoint').value = "https://0x9fcf7888963793472bfcb8c14f4b6b47a7462f17.gaia.domains/v1";
+            document.getElementById('llmModelName').value = "Gemma-3-27b";
+            document.getElementById('llmCtxSize').value = 32768;
             document.getElementById('customConfig').style.display = "block";
         } else {
             const modelUrl = selectedOption.value;
