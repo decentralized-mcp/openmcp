@@ -286,11 +286,11 @@
                     # Start an Internet-accessible OpenMCP server at port 8081 for a local MCP server in tools.py<br>
                     <span style="color: #FF79C6;">$</span> <span style="color: #50FA7B;">openmcp run -p 0.0.0.0:8081</span> -- python tools.py<br>
                     <br>
-                    # Start OpenMCP server with a Wasm MCP module<br>
-                    <span style="color: #FF79C6;">$</span> <span style="color: #50FA7B;">openmcp --service</span> my_mcp_server.wasm<br>
+                    # Coming soon: Start OpenMCP server with a Wasm MCP module<br>
+                    <span style="color: #FF79C6;">$</span> <span style="color: #50FA7B;">openmcp run -p 0.0.0.:8081 --service</span> my_mcp_server.wasm<br>
                     <br>
-                    # Start OpenMCP server with a Wasm module that checks API keys<br>
-                    <span style="color: #FF79C6;">$</span> <span style="color: #50FA7B;">openmcp --service</span> my_mcp_server.wasm <span style="color: #50FA7B;">--policy</span> check_api_key.wasm<br>
+                    # Coming soon: Start OpenMCP server with a Wasm module that checks API keys<br>
+                    <span style="color: #FF79C6;">$</span> <span style="color: #50FA7B;">openmcp run -p 0.0.0.0:8081 --service</span> my_mcp_server.wasm <span style="color: #50FA7B;">--policy</span> check_api_key.wasm<br>
                     <br>
                 </div>
             </div>
