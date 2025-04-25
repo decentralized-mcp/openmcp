@@ -247,7 +247,7 @@
                     <ul style="list-style: none;">
                         <li><a href="#features" style="text-decoration: none; color: #333342; font-weight: 500; transition: color 0.3s; padding-bottom: 0.3rem;">Features</a></li>
                         <li><a href="#how-it-works" style="text-decoration: none; color: #333342; font-weight: 500; transition: color 0.3s; padding-bottom: 0.3rem;">How It Works</a></li>
-                        <!-- <li><a href="https://lu.ma/9rk0jyq7" class="btn" style="display: block; margin-top: 1rem; text-align: center;">Join us</a></li> -->
+                        <li><a href="https://github.com/decentralized-mcp" class="btn" style="display: block; margin-top: 1rem; text-align: center;">GitHub</a></li>
                     </ul>
                 </nav>
             </div>
@@ -260,7 +260,7 @@
             <h1>Share, Secure & Monetize MCP Services</h1>
             <p style="font-size: 1.1rem; color: #71717A; margin-bottom: 2rem;">MCP (Model Context Protocol) servers allow LLMs to <b>act</b> on its <b>thoughts</b>. OpenMCP makes local MCP services safely accessible over the web through runtime sandboxes, security rules and authorization policies.</p>
             <p style="font-size: 1.1rem; color: #71717A; margin-bottom: 2rem;">The OpenMCP protocol enables individual MCP servers to verifiy and monetize their services through a staked crypto network.</p>
-            <!-- <a href="https://lu.ma/9rk0jyq7" class="btn" style="width: 100%; max-width: 300px;">Join our event</a> -->
+            <a href="https://github.com/decentralized-mcp/servers" class="btn" style="width: 100%; max-width: 300px;">Getting started</a>
         </div>
         <div class="hero-image">
             <img src="agent.jpg" alt="OpenMCP Diagram" style="border-radius: 16px; box-shadow: 0 20px 40px rgba(94, 66, 188, 0.1);" />
@@ -278,10 +278,10 @@
                 </div>
                 <div style="margin-left: 10px; margin-right: 10px; padding-top: 20px;">
                     # Quick installation<br>
-                    <span style="color: #FF79C6;">$</span> <span style="color: #50FA7B;">curl -sSfL 'https://github.com/second-state/openmcp/releases/latest/download/install.sh' | bash</span><br>
+                    <span style="color: #FF79C6;">$</span> <span style="color: #50FA7B;">curl -sSfL 'https://github.com/decentralized-mcp/proxy/releases/latest/download/install.sh' | bash</span><br>
                     <br>
-                    # Start OpenMCP server with a local MCP server in my_mcp_server.js<br>
-                    <span style="color: #FF79C6;">$</span> <span style="color: #50FA7B;">openmcp</span> node my_mcp_server.js<br>
+                    # Start an Internet-accessible OpenMCP server at port 8081 for a local MCP server in tools.py<br>
+                    <span style="color: #FF79C6;">$</span> <span style="color: #50FA7B;">openmcp run -p 0.0.0.0:8081</span> -- python tools.py<br>
                     <br>
                     # Start OpenMCP server with a Wasm MCP module<br>
                     <span style="color: #FF79C6;">$</span> <span style="color: #50FA7B;">openmcp --service</span> my_mcp_server.wasm<br>
