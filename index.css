@@ -1,0 +1,834 @@
+/* index.css - Part 1: Base, Utilities, Layout, Header */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+body {
+    color: #333342;
+    line-height: 1.6;
+    background-color: #FFFFFF; /* Base background */
+}
+
+/* Utility & Layout */
+.container {
+    width: 100%;
+    padding: 0 1rem;
+    margin: 0 auto;
+}
+
+@media (min-width: 768px) {
+    .container {
+        padding: 0 2rem;
+        max-width: 1140px;
+    }
+}
+
+@media (min-width: 1200px) {
+    .container {
+        padding: 0 3rem;
+        max-width: 1200px;
+    }
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+}
+
+@media (min-width: 768px) {
+    .grid-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 992px) {
+    .grid-container.three-col {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+/* Header */
+header {
+    position: sticky; /* Keep header visible */
+    top: 0; /* Stick to the top */
+    z-index: 1000; /* Ensure it's above other content */
+    background-color: rgba(254, 250, 249, 0.8); /* Semi-transparent */
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px); /* Safari */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    transition: padding 0.3s ease, box-shadow 0.3s ease; /* Smoother transition */
+    display: flex;
+    flex-direction: column;
+}
+
+.header-scrolled {
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+}
+
+.header-scrolled .header-logo {
+    transform: scale(0.75);
+    transform-origin: left center; /* Scale from the left */
+}
+
+.header-scrolled .nav-menu {
+    transform: scale(0.75);
+    transform-origin: right center; /* Scale the whole menu block from the right */
+}
+
+.header-scrolled .header-container {
+    padding: 0rem 1.5rem; /* Explicit reduced padding */
+}
+
+.header-container {
+    display: flex;
+    flex-direction: column;
+    padding: .5rem 1.5rem; /* Explicit initial padding */
+    transition: padding 0.3s ease; /* Transition for padding change */
+}
+
+.header-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 0; /* Add vertical padding */
+}
+
+.header-logo {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #D98B76;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    text-decoration: none; /* Remove underline if header logo is a link */
+    transition: transform 0.3s ease; /* Correct logo transition */
+    transform-origin: left center; /* Ensure base transform origin for logo */
+}
+
+.header-logo-icon {
+    width: 40px;
+    height: 40px;
+    background-color: #D98B76;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: bold;
+}
+
+.mobile-menu-btn {
+    display: block;
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 0;
+}
+
+.mobile-menu-btn svg {
+    display: block; /* Prevent extra space below SVG */
+}
+
+/* Navigation */
+.nav-menu {
+    display: flex; /* Keep as flex for layout, hide with opacity/visibility */
+    width: 100%;
+    font-size: 1.2rem;
+
+    /* Initial hidden state for animation */
+    position: absolute; /* Needs positioning for transform/z-index */
+    top: 100%;
+    left: 0;
+    right: 0;
+    background-color: #FEFAF9;
+    padding: 1rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 999;
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px); /* Start slightly up */
+    pointer-events: none; /* Disable interaction when hidden */
+    transition: opacity 0.2s ease-out, transform 0.2s ease-out, visibility 0.2s;
+}
+
+.nav-menu.active {
+    /* Active state */
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+.nav-menu ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 0.5rem; /* Spacing for mobile */
+}
+
+.nav-menu ul li {
+    margin-bottom: 0; /* Remove bottom margin if using gap */
+}
+
+.nav-menu ul li a {
+    text-decoration: none;
+    color: #333342;
+    font-weight: 500;
+    transition: color 0.3s; /* Remove transform transition from individual links */
+    padding: 0.5rem 0; /* Base padding */
+    display: block; /* Make whole area clickable */
+}
+
+.nav-menu ul li a:hover,
+.nav-menu ul li a:focus {
+    color: #D98B76;
+}
+
+@media (min-width: 768px) {
+    .mobile-menu-btn {
+        display: none;
+    }
+
+    .nav-menu {
+        display: flex; /* Change to flex for desktop layout */
+        width: auto;
+        position: static; /* Reset positioning */
+        background-color: transparent;
+        padding: 0;
+        box-shadow: none;
+        border-top: none;
+        /* Reset animation properties */
+        opacity: 1;
+        visibility: visible;
+        transform: none;
+        pointer-events: auto;
+    }
+
+    .nav-menu ul {
+        flex-direction: row;
+        gap: 1.5rem;
+        width: auto;
+    }
+
+    .nav-menu ul li a {
+        padding: 0;
+        padding-bottom: 0.3rem; /* Keep underline space */
+        display: inline-block;
+    }
+
+    .nav-menu ul li a:hover,
+    .nav-menu ul li a:focus {
+        border-bottom: 2px solid #D98B76; /* Add underline on hover/focus */
+        padding-bottom: calc(0.3rem - 2px); /* Adjust padding to keep text position */
+    }
+}
+
+/* Hero Section */
+.hero-section {
+    display: flex;
+    flex-direction: column;
+}
+
+.hero-content p {
+    font-size: 1.5rem;
+    padding-bottom: 1rem;
+}
+
+.hero-buttons {
+    display: flex;
+    justify-content: center; /* Center buttons horizontally */
+    align-items: stretch; /* Make buttons equal height */
+    gap: 1.5rem; /* Space between buttons */
+    font-size: 1.5rem;
+}
+
+@media (min-width: 768px) {
+    .hero-section {
+        /* Make hero fill most of viewport height */
+        min-height: 85vh;
+        transition: min-height 0.5s ease-out; /* Add transition for height change */
+        display: flex; /* Already here, but ensure it stays */
+        flex-direction: column; /* Stack content vertically */
+        justify-content: center; /* Vertically center */
+        align-items: center; /* Horizontally center (along with text-align) */
+        text-align: center;
+        padding: 4rem 0; /* Reduced vertical padding */
+    }
+
+    .hero-section.hero-condensed {
+        min-height: 65vh;
+    }
+
+    .hero-content {
+        flex: none;
+        max-width: 800px;
+    }
+
+    .hero-content p {
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+/* Mobile Overrides */
+@media (max-width: 767px) {
+    /* --- Header Overrides --- */
+    .header-scrolled .header-logo {
+        transform: none; /* Disable logo scaling on mobile */
+    }
+    .header-scrolled .nav-menu {
+        transform: none; /* Disable nav scaling on mobile */
+    }
+    .header-scrolled .header-container {
+        /* Keep original padding when scrolled */
+        padding: .5rem 1.5rem; 
+    }
+    /* --- End Header Overrides --- */
+
+    .hero-section {
+        min-height: auto; /* Don't force viewport height */
+        padding: 5rem 2rem 6em; /* Generous vertical padding */
+        text-align: center; /* Center align text on mobile */
+        min-height: 80vh;
+    }
+
+    .hero-content h1 {
+        font-size: clamp(3rem, 8vw, 4rem); /* Responsive font size */
+        padding-bottom: 0; /* Remove large bottom padding */
+        margin-bottom: 2rem; /* Add margin for spacing above buttons */
+    }
+
+    .hero-content p {
+        font-size: 1.5rem; /* Adjust paragraph size if needed */
+        max-width: 90%; /* Ensure text doesn't touch edges */
+        margin-left: auto;
+        margin-right: auto;
+        display: none;
+    }
+
+    .hero-buttons {
+        flex-direction: column; /* Stack buttons */
+        align-items: center; /* Center stacked buttons */
+        gap: 1.5rem; /* Space between stacked buttons */
+    }
+
+    .hero-buttons .btn {
+        padding: 1rem 1.5rem; /* Increased vertical padding */
+        font-size: 1.3rem; /* Increased font size */
+        width: 80%; /* Make buttons wider on mobile */
+        max-width: 300px; /* Optional: Prevent buttons from becoming too wide */
+    }
+}
+
+/* Quick Start Content - Hidden Initially */
+.quick-start-content {
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease-out, opacity 0.4s ease-out, margin-top 0.5s ease-out;
+}
+
+/* Quick Start Content - Visible State */
+.quick-start-content.active {
+    max-height: 600px; /* Adjust if needed */
+    opacity: 1;
+    padding-bottom: 3rem; /* Add space below */
+}
+
+/* Code Block Section */
+.code-block-container {
+    max-width: 800px; /* Limit max width for readability */
+    margin-left: auto;
+    margin-right: auto;
+    padding-bottom: 1rem;
+}
+
+.code-block-title {
+    color: #333; /* Match existing heading styles if possible, or choose a suitable dark color */
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.code-block-container > h4:first-of-type {
+    margin-top: 0;
+}
+
+.code-block-wrapper {
+    background-color: #262737; /* Dark background - Softer grayish-blue */
+    border: 2px solid #414868; /* Subtle border */
+    border-radius: 8px;
+    margin-bottom: 1.5rem; /* Space below each block */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    position: relative; /* Needed for absolute positioning of button within */
+}
+
+.code-block {
+    position: relative; 
+    /* Remove direct styling like color, font, padding as it moves to the <code> tag */
+}
+
+.code-block > code {
+    display: block; /* Make it behave like a block */
+    color: #d3dbff; 
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 1rem; 
+    line-height: 1.6;
+    padding: 0 1rem;
+    white-space: pre-wrap; /* Preserve whitespace and wrap long lines */
+    overflow-x: auto; /* Add horizontal scroll ONLY if absolutely needed */
+    word-wrap: break-word; /* Help break long words/strings if needed */
+}
+
+.code-block::-webkit-scrollbar {
+    height: 8px;
+    background-color: rgba(65, 72, 104, 0.3);
+}
+
+.code-block::-webkit-scrollbar-thumb {
+    background-color: #414868;
+    border-radius: 4px;
+}
+
+.code-block code span.prompt { color: #F7768E; font-weight: bold; } /* Pink/Red */
+.code-block code span.command { color: #7AA2F7; } /* Blue */
+.code-block code span.comment { color: #9ea6b5; font-style: italic; } /* Gray */
+.code-block code a {
+    color: #9ECE6A; /* Green */
+    text-decoration: underline;
+}
+
+.code-block code a:hover {
+    color: #B9F27C; /* Lighter Green */
+}
+
+.copy-button {
+    position: absolute;
+    top: 0.6rem;
+    right: 0.6rem;
+    background: rgba(45, 48, 64, 0.7); /* Semi-transparent dark */
+    border-radius: 6px;
+    border: none;
+    color: #d9ddec; /* Icon color - light gray/blue */
+    cursor: pointer;
+    padding: 4px 6px;
+    line-height: 1;
+    opacity: 0.7; /* Slightly transparent initially */
+    transition: opacity 0.2s ease, background-color 0.2s ease, color 0.2s ease;
+    z-index: 5; /* Above code content, below tooltip */
+}
+
+.copy-button svg {
+    display: block; /* Prevents extra space below icon */
+    width: 14px; /* Slightly smaller icon */
+    height: 14px;
+}
+
+.copy-button:hover {
+    color: #C0CAF5; /* Brighter icon on hover */
+    background: #2D3040; /* Slightly lighter bg on hover */
+    opacity: 1;
+}
+
+.copy-button:disabled {
+    cursor: default;
+    opacity: 0.5;
+}
+
+.copy-tooltip {
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-5px);
+    background-color: #414868; /* Dark blue-gray */
+    color: #C0CAF5;
+    padding: 5px 10px;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s ease, visibility 0s linear 0.2s; /* Delay hiding visibility */
+    z-index: 100; /* Ensure tooltip is above everything */
+}
+
+.copy-tooltip.visible {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.2s ease, visibility 0s linear 0s;
+}
+
+/* Features Section */
+.features-section {
+    width: 100%;
+    background-color: #FEFAF9;
+    padding: 3rem 0;
+    margin: 0;
+}
+
+.section-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.section-header h2 {
+    color: #D98B76;
+    /* font-size/weight inherited */
+}
+
+.section-header p {
+    font-size: 1.5rem;
+    /* color: #71717A inherited */
+}
+
+.feature-card {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(94, 66, 188, 0.06);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.feature-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(94, 66, 188, 0.1);
+}
+
+.feature-icon-wrapper {
+    width: 50px;
+    height: 50px;
+    background-color: #FFF8F6;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+}
+
+.feature-icon-wrapper svg {
+    stroke: #D98B76;
+    width: 25px;
+    height: 25px;
+}
+
+.feature-card p {
+    font-size: 0.95rem;
+    /* color: #71717A inherited */
+}
+
+/* How It Works Section */
+.how-it-works-section {
+    width: 100%;
+    background-color: #FFF8F6; /* Slightly different background? */
+    padding: 3rem 0;
+    margin: 0;
+    margin-top: 3rem;
+}
+
+.how-it-works-section .section-header p {
+    font-size: 1.2rem; /* Smaller subtitle */
+    max-width: 800px; /* Limit width */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.sub-heading {
+    text-align: center;
+    margin: 2rem 0 1.5rem;
+    font-size: 1.5rem;
+    color: #D98B76;
+    font-weight: 600;
+}
+
+.plugin-card, .network-card {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 16px;
+    box-shadow: 0 10px 25px rgba(94, 66, 188, 0.08);
+    text-align: center;
+}
+
+.card-icon-wrapper {
+    width: 40px;
+    height: 40px;
+    background-color: #D98B76;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    margin: 0 auto 1.5rem;
+    font-size: 1.2rem; /* Emoji size */
+}
+
+.plugin-card h3, .network-card h3 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.plugin-card p, .network-card p {
+    font-size: 0.95rem;
+    /* color: #71717A inherited */
+}
+
+/* Investors Section */
+.investors-section {
+    width: 100%;
+    background-color: #FEFAF9;
+    padding: 3rem 0;
+    margin: 0;
+    text-align: center;
+}
+
+.investors-section h2 {
+     /* Inherited */
+}
+
+.investors-section p {
+    font-size: 1.2rem;
+    font-weight: 500;
+    margin-bottom: 2rem;
+    /* color: #71717A inherited */
+}
+
+.investor-logos {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    margin: 0 auto;
+}
+
+.investor-logo {
+    padding: 0.8rem 1.2rem; /* Adjust padding */
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+    color: #555; /* Assuming text logos for now */
+    font-weight: 500;
+    font-size: 0.9rem;
+}
+
+/* Footer */
+footer {
+    background-color: #333342;
+    color: white;
+    padding: 3rem 0 1.5rem;
+}
+
+.footer-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+}
+
+.footer-company-info .footer-logo {
+    font-size: 1.5rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.footer-company-info .footer-logo-icon {
+    width: 28px;
+    height: 28px;
+    background-color: #D98B76;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: bold;
+}
+
+.footer-company-info p {
+    color: #A1A1AA;
+    margin-bottom: 1.5rem;
+}
+
+.footer-social-links {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.footer-social-link {
+    width: 36px;
+    height: 36px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s;
+}
+
+.footer-social-link:hover,
+.footer-social-link:focus {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.footer-social-link svg {
+    width: 18px;
+    height: 18px;
+    fill: white;
+}
+
+/* Footer grid responsiveness */
+@media (min-width: 768px) {
+    .footer-grid {
+        grid-template-columns: 2fr 1fr; /* Adjust as needed */
+    }
+}
+
+@media (min-width: 992px) {
+    .footer-grid {
+        grid-template-columns: 2fr 1fr 1fr 1fr; /* Example for more columns */
+    }
+}
+
+/* Footer Bottom */
+.footer-bottom {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-top: 2rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(255,255,255,0.1);
+}
+
+.footer-copyright {
+    color: #A1A1AA;
+    font-size: 0.9rem;
+    text-align: center;
+}
+
+/* Image responsive (general) */
+img {
+    max-width: 100%;
+    height: auto;
+    display: block; /* Prevents bottom space */
+}
+
+/* Buttons */
+.btn {
+    display: inline-block;
+    box-sizing: border-box; /* Include padding and border in element's total width/height */
+    background-color: #D98B76;
+    color: white;
+    padding: 0.75rem 1.25rem; /* Slightly adjust padding for consistency */
+    border-radius: 8px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background-color 0.3s, transform 0.2s;
+    text-align: center;
+    border: none; /* Ensure no default border */
+    cursor: pointer;
+}
+
+.btn:hover {
+    transform: translateY(-2px); /* Slight lift */
+    background-color: #c77a68; /* Darker shade on hover */
+    color: white;
+}
+
+.btn:focus {
+    background-color: #c77a68; /* Darker shade on focus */
+    color: white;
+}
+
+/* Outline Button Style */
+.btn-outline {
+    background-color: transparent;
+    border: 2px solid var(--accent-color, #D98B76); /* Use accent color */
+    color: var(--accent-color, #D98B76);
+    font-size: 1.5rem;
+}
+
+.btn-outline:hover, .btn-outline:focus {
+    background-color: rgba(217, 139, 118, 0.1); /* Subtle background on hover */
+    color: var(--accent-color, #D98B76); /* Keep text color */
+}
+
+/* Typography */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    color: #333342; /* Consistent heading color */
+}
+
+h1 {
+    font-size: 2.5rem;
+    font-weight: 800;
+    line-height: 1.2;
+    margin-bottom: 1.5rem;
+    background: linear-gradient(90deg, #D98B76 0%, #8A74E8 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent; /* Fallback for browsers not supporting background-clip */
+}
+
+h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+h3 {
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin-bottom: 0.8rem;
+}
+
+p {
+    color: #71717A; /* Specific color for paragraphs */
+    margin-bottom: 1rem; /* Default paragraph spacing */
+}
+
+p:last-child {
+    margin-bottom: 0; /* No margin on last paragraph in a block */
+}
+
+a {
+    color: #D98B76; /* Default link color */
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+a:hover,
+a:focus {
+    color: #8A74E8; /* Link hover color */
+    text-decoration: underline;
+}
+
+/* Responsive Typography */
+@media (min-width: 768px) {
+    h1 {
+        font-size: 5rem;
+    }
+    h2 {
+        font-size: 2.5rem;
+    }
+}
