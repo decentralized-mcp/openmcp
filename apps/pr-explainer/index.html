@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GitHub PR Reviewer</title>
-    <link rel="icon" href="/apps/podcasts/favicon.ico" type="image/x-icon">
+    <title>GitHub PR Explainer</title>
+    <link rel="icon" href="/apps/pr-explainer/favicon.ico" type="image/x-icon">
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <style>
         body {
@@ -263,7 +263,7 @@
     </style>
 </head>
 <body>
-<h1>GitHub PR Reviewer</h1>
+<h1>GitHub PR Explainer</h1>
 <div class="centered">
     <form id="prForm">
         <div class="section">
@@ -294,7 +294,7 @@
             </div>
             <span style="color: #b2b2b2;">* You can get our API key through <a
                     href="https://docs.gaianet.ai/getting-started/authentication" style="color: #626262;"
-                    target="_blank">this documentation</a>.</span>
+                    target="_blank">this guide</a>.</span>
         </div>
 
         <div class="section">
@@ -350,12 +350,6 @@
             name: "Gaia Gemma 3 27b",
             url: "https://0x9fcf7888963793472bfcb8c14f4b6b47a7462f17.gaia.domains/v1",
             model: "Gemma-3-27b",
-            memory: 32768
-        },
-        {
-            name: "Gaia — DeepSeek R1 distilled Qwen 32b",
-            url: "https://deepseek.gaia.domains/v1",
-            model: "DeepSeek-R1-Distill-Qwen-32B-Q5_K_M",
             memory: 32768
         },
         {
@@ -578,7 +572,7 @@
                 review_prompt: reviewPrompt
             };
 
-            const webhookUrl = 'https://flows.openmcp.app/webhook/o9689KdmSIcgOIAOFUs9/review';
+            const webhookUrl = 'https://flows.openmcp.app/webhook/o9689KdmSIcgOIAOFUs9/explain';
             const webhookResponse = await fetch(webhookUrl, {
                 method: 'POST',
                 headers: {
